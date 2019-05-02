@@ -14,6 +14,7 @@ import VueApollo from 'vue-apollo'
 
 import Vue from 'vue'
 import App from './App'
+import router from './router'
 import 'tachyons'
 
 Vue.config.productionTip = false
@@ -40,5 +41,6 @@ const apolloProvider = new VueApollo({
 new Vue({
   el: '#app',
   provide: apolloProvider.provide(),
+  router,
   render: h => h(App)
 })
