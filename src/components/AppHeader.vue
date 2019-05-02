@@ -5,14 +5,36 @@
         Hacker News
       </div>
       <router-link to="/" class="ml1 no-underline black">new</router-link>
-      <div class="ml1">|</div>
-      <router-link to="/create" class="ml1 no-underline black">submit</router-link>
+      <div class="flex" v-if="userId">
+        <div class="ml1">|</div>
+        <router-link to="/create" class="ml1 no-underline black">submit</router-link>
+      </div>
+    </div>
+    <div class="flex flex-fixed">
+      <div v-if="userId" class="ml1 pointer black" @click="logout()">
+        Logout
+      </div>
+      <router-link v-else to="/login" class="ml1 no-underline black">Login</router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants/settings'
+
 export default {
-  name: 'AppHeader'
+  name: 'AppHeader',
+  computed: {
+    userId () {
+      return this.$root.$data.userId
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem(GC_USER_ID)
+      localStorage.removeItem(GC_AUTH_TOKEN)
+      this.$root.$data.userId = localStorage.getItem(GC_USER_ID)
+    }
+  }
 }
 </script>

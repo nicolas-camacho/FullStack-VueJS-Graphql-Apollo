@@ -10,6 +10,7 @@
 
 <script>
 import { ALL_LINKS_QUERY, CREATE_LINK_MUTATION } from '../constants/graphql'
+import { GC_USER_ID } from '../constants/settings'
 
 export default {
   name: 'CreateLink',
@@ -21,12 +22,23 @@ export default {
   },
   methods: {
     createLink () {
-      const { description, url } = this.$data
+      const postedById = localStorage.getItem(GC_USER_ID)
+      if (!postedById) {
+        console.error('No user logged in')
+        return
+      }
+
+      const newDescription = this.description
+      const newUrl = this.url
+      this.description = ''
+      this.url = ''
+
       this.$apollo.mutate({
         mutation: CREATE_LINK_MUTATION,
         variables: {
-          description,
-          url
+          description: newDescription,
+          url: newUrl,
+          postedById
         },
         update: (store, { data: { createLink } }) => {
           const data = store.readQuery({
@@ -39,6 +51,8 @@ export default {
         this.$router.push({path: '/'})
       }).catch((error) => {
         console.error(error)
+        this.newDescription = newDescription
+        this.newUrl = newUrl
       })
     }
   }

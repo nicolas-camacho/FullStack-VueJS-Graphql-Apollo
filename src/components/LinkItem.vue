@@ -1,6 +1,6 @@
 <template>
 <div>
-  {{link.description}} {{link.url}}
+  {{link.description}} ({{link.url}})
 </div>
 </template>
 
