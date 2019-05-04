@@ -28,6 +28,6 @@ function timeDifference (current, previus) {
 
 export function timeDifferenceForDate (date) {
   const now = new Date().getTime()
-  const updtaed = new Date(date).getTime()
+  const updated = new Date(date).getTime()
   return timeDifference(now, updated)
 }

@@ -1,5 +1,5 @@
 # project: cjuq0u5hh335l0168ccjt7ubv
-# version: 5
+# version: 6
 
 type Link @model {
   id: ID! @isUnique
@@ -8,6 +8,7 @@ type Link @model {
   url: String!
   description: String!
   postedBy: User @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
 type File @model {
@@ -29,4 +30,11 @@ type User @model {
   updatedAt: DateTime!
   name: String!
   links: [Link!]! @relation(name: "UsersLinks")
+  vote: [Vote!]! @relation(name: "UserVotes")
+}
+
+type Vote @model {
+  id: ID! @isUnique
+  user: User! @relation(name: "UserVotes")
+  link: Link! @relation(name: "VotesOnLink")
 }
