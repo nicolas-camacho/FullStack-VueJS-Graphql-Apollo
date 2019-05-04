@@ -1,7 +1,7 @@
 <template>
 <div>
   <h4 v-if="loading">Loading...</h4>
-  <link-item v-for="link in allLinks" :key="link.id" :link="link">
+  <link-item v-for="link in allLinks" :key="link.id" :link="link" :index="index">
   </link-item>
 </div>
 </template>
